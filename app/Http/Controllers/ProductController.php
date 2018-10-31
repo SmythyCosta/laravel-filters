@@ -11,7 +11,7 @@ use App\Models\Product;
 class ProductController extends Controller
 {
 
-    public function testFilter(Request $request)
+    public function testFilter_1(Request $request)
     {
         $where_array = array();
         $filter = 0;
@@ -50,7 +50,7 @@ class ProductController extends Controller
             $data = Product::where($where_array)
                                                 ->where('name', 'like', '%'.$filter_name.'%')
                                                 ->orderBy($sort, 'asc')
-                                                ->get();
+                                                ->paginate(2);
         }else{
             $data = Product::where('active', 1)->orderBy('name', 'asc')->paginate(2);
         }
