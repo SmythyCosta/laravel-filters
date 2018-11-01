@@ -58,4 +58,52 @@ class ProductController extends Controller
         return response()->json(['status'=>200,'product'=>$data]);
     }
 
+    public function testFilter(Request $request)
+    {
+    	// Tutorial 
+    	// Arrays multidimensional 
+    	// ====================================
+    	/*
+        |    DB::table('job_details')
+        |  		                    ->where([
+		|	                                 ['job_title', 'like', '%officer%'],
+		|	                                 ['category_id', '=', 1], 
+		|	                                 ['city_id', '=', 1]
+        |       	                     ])->get();
+      	*/
+
+        //$id = 9565;
+        $category_id = 1;
+        $name = 'a';
+        $sort = 'name';
+
+        $where_array = array();
+        $id_array = array();
+        $category_id_array = array();
+
+        if (isset($id) && $id) {
+        	$id_array = ['id', '=', $id];
+        	array_push($where_array, $id_array);
+        }
+
+        if (isset($category_id) && $category_id) {
+        	$category_id_array = ['category_id', '=', $category_id];
+        	array_push($where_array, $category_id_array);
+        }
+
+        if (isset($name) && $name) {
+            $name_array = ['name', 'like', '%'.$name.'%'];
+        	array_push($where_array, $name_array);
+        }
+
+        // Tesd debug
+        // ====================
+        //print_r($where_array);
+
+        $data = Product::where($where_array)
+                                        ->orderBy($sort, 'asc')
+                                        ->paginate(2);
+        return response()->json(['status'=>200,'product'=>$data]);
+    }
+
 }
