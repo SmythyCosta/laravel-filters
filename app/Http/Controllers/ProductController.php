@@ -72,14 +72,11 @@ class ProductController extends Controller
         |       	                     ])->get();
       	*/
 
-        //$id = 9565;
         $category_id = 1;
         $name = 'a';
         $sort = 'name';
 
         $where_array = array();
-        $id_array = array();
-        $category_id_array = array();
 
         if (isset($id) && $id) {
         	$id_array = ['id', '=', $id];
